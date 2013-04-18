@@ -98,7 +98,7 @@ return array(
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=bidding',
             'emulatePrepare' => true,
-            'username' => 'root',
+            'username' => '',
             'password' => '',
             'charset' => 'utf8',
         ),
@@ -135,8 +135,8 @@ return array(
 // using Yii::app()->params['paramName']
     'params' => array(
 // this is used in contact page
-        'adminEmail' => 'thcdesigning@gmail.com',
-        'adminName' => 'Bidding Admin',
+        'adminEmail' => 'sneh@itobuz.com',
+        'adminName' => 'Admin Panel',
         'commTestDir' => '/ctest36352/',
         'allowedTypes' => array('jpeg', 'jpg', 'gif', 'png', 'pdf', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt'),
         'maxUploadSize' => 20 * 1024 * 1024
