@@ -98,7 +98,7 @@ return array(
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=bidding',
             'emulatePrepare' => true,
-            'username' => '',
+            'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
         ),
