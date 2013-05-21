@@ -1,15 +1,14 @@
 <?php
-$this->breadcrumbs=array(
-	'Listings'=>array('index'),
-	'Create',
+$this->breadcrumbs = array(
+    'Listings' => array('index'),
+    'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Listing', 'url'=>array('index')),
-	array('label'=>'Manage Listing', 'url'=>array('admin') , 'visible' => Yii::app()->user->checkAccess('Admin')),
+$this->menu = array(
+    array('label' => 'List Listing', 'url' => array('index')),
+    array('label' => 'Manage Listing', 'url' => array('admin'),
+        'visible' => Yii::app()->user->checkAccess('Admin')),
 );
 ?>
 
-<h1>Create Listing</h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'file_model' => $file_model)); ?>

@@ -29,55 +29,5 @@
     <?php echo CHtml::encode($data->paymentDate); ?>
     <br />
 
-    <?php /*
-      <b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
-      <?php echo CHtml::encode($data->price); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('state')); ?>:</b>
-      <?php echo CHtml::encode($data->state); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('city')); ?>:</b>
-      <?php echo CHtml::encode($data->city); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('kms')); ?>:</b>
-      <?php echo CHtml::encode($data->kms); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('paymentTerms')); ?>:</b>
-      <?php echo CHtml::encode($data->paymentTerms); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('expireTime')); ?>:</b>
-      <?php echo CHtml::encode($data->expireTime); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('tradeType')); ?>:</b>
-      <?php echo CHtml::encode($data->tradeType); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('specialRequirments')); ?>:</b>
-      <?php echo CHtml::encode($data->specialRequirments); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('commodityTestReport')); ?>:</b>
-      <?php echo CHtml::encode($data->commodityTestReport); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('deliveryAddress')); ?>:</b>
-      <?php echo CHtml::encode($data->deliveryAddress); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('lat')); ?>:</b>
-      <?php echo CHtml::encode($data->lat); ?>
-      <br />
-
-      <b><?php echo CHtml::encode($data->getAttributeLabel('long')); ?>:</b>
-      <?php echo CHtml::encode($data->long); ?>
-      <br />
-
-     */ ?>
 
 </div>

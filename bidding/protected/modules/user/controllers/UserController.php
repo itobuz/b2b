@@ -49,7 +49,8 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User', array(
+	Yii::app()->theme = 'abound';	
+            $dataProvider=new CActiveDataProvider('User', array(
 			'criteria'=>array(
 		        'condition'=>'status>'.User::STATUS_BANNED,
 		    ),
@@ -106,4 +107,6 @@ class UserController extends Controller
             throw new CHttpException(404, 'The requested user does not exist.');
         return $model;
     }
+	
+
 }

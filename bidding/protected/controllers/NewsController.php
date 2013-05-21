@@ -50,7 +50,8 @@ class NewsController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+	Yii::app()->theme = 'abound';	
+            $this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -61,7 +62,8 @@ class NewsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new News;
+	Yii::app()->theme = 'abound';	
+            $model=new News;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -85,7 +87,9 @@ class NewsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		Yii::app()->theme = 'abound';	
+	
+            $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -127,7 +131,9 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('News');
+		Yii::app()->theme = 'abound';	
+	
+            $dataProvider=new CActiveDataProvider('News');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -138,7 +144,9 @@ class NewsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new News('search');
+		Yii::app()->theme = 'abound';	
+	
+            $model=new News('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['News']))
 			$model->attributes=$_GET['News'];

@@ -1,5 +1,5 @@
  
-<div class="view  <? if($data->bidStatus == 'approved') { ?> alert-block <? } ?>">
+<div class=" bidlist <? if ($data->bidStatus == 'approved') { ?> alert-block <? } ?>">
 
     <span class="pull-right">
         <?
@@ -12,30 +12,28 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" class="btn btn-danger" value="Reject"  href="#r00<?= $data->id ?>" data-toggle="modal">
         <? } else if ($data->bidStatus == 'rejected') { ?> <span class="stat-block alert-error">Bid rejected </span><? } else if ($data->bidStatus == 'approved') { ?> <span class="stat-block alert-success">Bid accepted </span><? } else { ?>
-                
-<? } ?>
+
+        <? } ?>
     </span>
 
     <span class="clear"></span>
 
     <b>Username:</b>
     <?php
-   
     $user = User::model()->findByAttributes(array('id' => $data->userId));
     echo CHtml::encode($user->username);
     ?>
-    <br />
-
+    
     <b><?php echo CHtml::encode($data->getAttributeLabel('amount')); ?>:</b>
-<?php echo CHtml::encode($data->amount); ?>
+    <?php echo CHtml::encode($data->amount); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
-<?php echo CHtml::encode($data->comment); ?>
+    <?php echo CHtml::encode($data->comment); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('bidStatus')); ?>:</b>
-<?php echo CHtml::encode($data->bidStatus); ?>
+    <?php echo CHtml::encode($data->bidStatus); ?>
     <br />
 </div>
 
@@ -63,15 +61,15 @@
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('amount')); ?>:</b>
-    <?php echo CHtml::encode($data->amount); ?>
+            <?php echo CHtml::encode($data->amount); ?>
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
-    <?php echo CHtml::encode($data->comment); ?>
+            <?php echo CHtml::encode($data->comment); ?>
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('bidStatus')); ?>:</b>
-    <?php echo CHtml::encode($data->bidStatus); ?>
+            <?php echo CHtml::encode($data->bidStatus); ?>
             <br />
         </div>
         <div class="modal-footer">
@@ -101,15 +99,15 @@
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('amount')); ?>:</b>
-    <?php echo CHtml::encode($data->amount); ?>
+            <?php echo CHtml::encode($data->amount); ?>
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
-    <?php echo CHtml::encode($data->comment); ?>
+            <?php echo CHtml::encode($data->comment); ?>
             <br />
 
             <b><?php echo CHtml::encode($data->getAttributeLabel('bidStatus')); ?>:</b>
-    <?php echo CHtml::encode($data->bidStatus); ?>
+            <?php echo CHtml::encode($data->bidStatus); ?>
             <br />
         </div>
         <div class="modal-footer">
@@ -119,26 +117,27 @@
         <script type="text/javascript">
             jQuery(function($) {
                 $('#ac00<?= $data->id ?>').click(function(){
-                    var url = '<?php echo Yii::app()->createUrl('bid/confirm', array('pid' => $data->id, 'lid' => $data->listId)) ?>';
+                 
+                    var url = '<?php echo Yii::app()->createUrl('/bid/confirm', array('pid' => $data->id, 'lid' => $data->listId)) ?>';
                     $.ajax({'url' : url , success: function(data){
                             if(data == 'SUCCESS')
                             {
-                                document.location.href = "<? echo Yii::app()->createUrl('listing/view', array('id' => $data->listId, 'confirm' => 'success')) ?>";
+                                document.location.href = "<? echo Yii::app()->createUrl('/listing/view', array('id' => $data->listId, 'confirm' => 'success')) ?>";
                             }
                             else{
-                                document.location.href = "<? echo Yii::app()->createUrl('listing/view', array('id' => $data->listId, 'confirm' => 'error')) ?>";
+                                document.location.href = "<? echo Yii::app()->createUrl('/listing/view', array('id' => $data->listId, 'confirm' => 'error')) ?>";
                             }
                         }});
                 });
                 $('#rc00<?= $data->id ?>').click(function(){
-                    var url = '<?php echo Yii::app()->createUrl('bid/reject', array('pid' => $data->id, 'lid' => $data->listId)) ?>';
+                    var url = '<?php echo Yii::app()->createUrl('/bid/reject', array('pid' => $data->id, 'lid' => $data->listId)) ?>';
                     $.ajax({'url' : url , success: function(data){
                             if(data == 'SUCCESS')
                             {
-                                document.location.href = "<? echo Yii::app()->createUrl('listing/view', array('id' => $data->listId, 'reject' => 'success')) ?>";
+                                document.location.href = "<? echo Yii::app()->createUrl('/listing/view', array('id' => $data->listId, 'reject' => 'success')) ?>";
                             }
                             else{
-                                document.location.href = "<? echo Yii::app()->createUrl('listing/view', array('id' => $data->listId, 'reject' => 'error')) ?>";
+                                document.location.href = "<? echo Yii::app()->createUrl('/listing/view', array('id' => $data->listId, 'reject' => 'error')) ?>";
                             }
                         }});
                 });

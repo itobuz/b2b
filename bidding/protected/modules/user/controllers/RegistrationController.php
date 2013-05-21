@@ -23,7 +23,12 @@ class RegistrationController extends Controller {
         $model = new RegistrationForm;
         $profile = new Profile;
         $profile->regMode = true;
+		$comm = new Interestedcomm;
 
+
+
+		
+		
         // ajax validator
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'registration-form') {
             echo UActiveForm::validate(array($model, $profile));
@@ -43,8 +48,18 @@ class RegistrationController extends Controller {
                     $model->verifyPassword = UserModule::encrypting($model->verifyPassword);
                     $model->superuser = 0;
                     $model->status = ((Yii::app()->controller->module->activeAfterRegister) ? User::STATUS_ACTIVE : User::STATUS_NOACTIVE);
-
+                    $model->username = $model->email ;
                     if ($model->save()) {
+                    	
+						//echo "<pre>";print_r($_POST['Interestedcomm']);echo "</pre>";
+						foreach($_POST['Interestedcomm']['commId'] as $com){
+							$comm = new Interestedcomm;	
+							$comm->userId = $model->id;
+							$comm->commId = $com;
+							$comm->save();
+						}
+						//exit(0);
+						
                         Rights::assign('Authenticated', $model->id, NULL, NULL);
                         $profile->user_id = $model->id;
                         $profile->save();
@@ -74,7 +89,7 @@ class RegistrationController extends Controller {
                 } else
                     $profile->validate();
             }
-            $this->render('/user/registration', array('model' => $model, 'profile' => $profile));
+            $this->render('/user/registration', array('model' => $model, 'profile' => $profile, 'comm' => $comm));
         }
     }
 

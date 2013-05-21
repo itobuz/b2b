@@ -50,7 +50,8 @@ class LivefutureController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+	Yii::app()->theme = 'abound';	
+            $this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -61,7 +62,8 @@ class LivefutureController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Livefuture;
+	Yii::app()->theme = 'abound';	
+            $model=new Livefuture;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -85,7 +87,8 @@ class LivefutureController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+	Yii::app()->theme = 'abound';	
+            $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -126,7 +129,8 @@ class LivefutureController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		
+            if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
@@ -155,7 +159,8 @@ class LivefutureController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Livefuture('search');
+	Yii::app()->theme = 'abound';	
+            $model=new Livefuture('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Livefuture']))
 			$model->attributes=$_GET['Livefuture'];

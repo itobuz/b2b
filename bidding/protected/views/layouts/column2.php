@@ -1,21 +1,20 @@
-<?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-	<div id="content">
-		<?php echo $content; ?>
-	</div><!-- content -->
-</div>
-<div class="span-5 last">
-	<div id="sidebar">
-	<?php
-		$this->beginWidget('zii.widgets.CPortlet', array(
-			'title'=>'Operations',
-		));
-		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-			'htmlOptions'=>array('class'=>'operations'),
-		));
-		$this->endWidget();
-	?>
-	</div><!-- sidebar -->
+<?php $this->beginContent('//layouts/main');
+
+?>
+<div id="sidebar">
+    <h2>User Menu</h2>
+    <dl class="accordion">
+      <dt><a href="">Dashboard</a></dt>
+      <dd> <a href="#">Account Details</a> </dd>
+      <dt><a href="">Your Commodities</a></dt>
+      <dd> <a href="#">Post buy / sell requirements</a> <a href="#">View live commodities</a> </dd>
+      <dt><a href="">Your Commodity Bids</a></dt>
+      <dd> <a href="#">My Recieved Bids</a> <a href="#">My Posted Bids</a> <a href="#">Open Trades</a> <a href="#">Closed Trades</a></dd>
+      <dt><a href="">Account Settings</a></dt>
+      <dd> <a href="#">Account Details</a></dd>
+    </dl>
+  </div>
+<div id="main_content">
+	<?php echo $content; ?>
 </div>
 <?php $this->endContent(); ?>

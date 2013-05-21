@@ -541,3 +541,4 @@ footer {
     display:block;
 }
 .alert-block{background-color:#E6EFC2}
+.del{display:inline-block; height: 15px; width: 15px; background: url("../img/delete.gif") no-repeat; cursor: pointer}
