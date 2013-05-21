@@ -76,11 +76,7 @@ class BidController extends Controller {
     public function actionCreateAjax() {
         $model = new Bid;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Bid'])) {
-
+        if (isset($_REQUEST)) {
             $model->attributes = $_POST['Bid'];
             $model->userId = Yii::app()->user->id;
             $result = Bid::model()->findByAttributes(array('userId' => $model->userId, 'listId' => $model->listId));
@@ -101,7 +97,7 @@ class BidController extends Controller {
         $bid_id = isset($_REQUEST['pid']) ? (int) $_REQUEST['pid'] : die('NOPID');
         $list_id = isset($_REQUEST['lid']) ? (int) $_REQUEST['lid'] : die('NOLID');
         // current bids if any. If any other bid is accepted then make it pending.
-        
+
         $existing_bids = Bid::model()->findAllByAttributes(array('bidStatus' => 'approved', 'listId' => $list_id));
         if (!empty($existing_bids)) {
             foreach ($existing_bids as $row) {
@@ -114,7 +110,7 @@ class BidController extends Controller {
         $bid = Bid::model()->findByPk($bid_id);
         $logged_user_id = Yii::app()->user->id;
         $listing = Listing::model()->findByPk($list_id);
-        if(!($logged_user_id == $listing->userId))
+        if (!($logged_user_id == $listing->userId))
             return;
         $bid->bidStatus = 'approved';
         if ($bid->save())
@@ -220,5 +216,41 @@ class BidController extends Controller {
             Yii::app()->end();
         }
     }
+    public function actionRejectBid() {
+        $bid_id = isset($_REQUEST['pid']) ? (int) $_REQUEST['pid'] : die('NOPID');
+       // $list_id = isset($_REQUEST['lid']) ? (int) $_REQUEST['lid'] : die('NOLID');
+        $bid = Bid::model()->findByPk($bid_id);
+		if($bid->list->userId == Yii::app()->user->id)
+        	$bid->bidStatus = 'rejected';
+		
+        if ($bid->save()){
+        	
+			$criteria = new CDbCriteria;
+	        $criteria->condition = 'listId = ' . (int) $bid->listId;
+	        $criteria->order = 'bidStatus ASC,id DESC';
+	        $bidDataProvider = new CActiveDataProvider('Bid', array(
+	                    'criteria' => $criteria,
+	                    'pagination' => array(
+	                        'pageSize' => 10,
+	                    ),
+	                ));
+					
+			$model = new Listing;
+			$criteria2 = new CDbCriteria;
+			$criteria2->condition = 'userId = ' . Yii::app()->user->id;
+	        $listProvider = new CActiveDataProvider('Listing', array('criteria' => $criteria2));
+			
+	        $this->render('//listing/bidview', array(
+	            'dataProvider' => $bidDataProvider,
+	             'listProvider' => $listProvider,
+	        ));
+        }
+        else
+            die('ERROR');
+    }
 
+	public function actionAccept($id){
+		 
+		 
+	}
 }

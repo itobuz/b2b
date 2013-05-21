@@ -28,8 +28,8 @@ class SiteController extends Controller {
         // renders the view file 'protected/views/site/index.php'
         // 
         // using the default layout 'protected/views/layouts/main.php'
-
-
+      
+        $this->layout = '//layouts/column1_home'; // we are rendering abound theme for the admin, so this layout is not needed for him
         $criteria2 = new CDbCriteria;
         $criteria2->condition = 'showOnHome = 1';
         $liveSpotDataProvider = new CActiveDataProvider('Livespot', array(
@@ -38,9 +38,12 @@ class SiteController extends Controller {
                         'pageSize' => 10,
                     ),
                 ));
-        
-         $newsDataProvider = new CActiveDataProvider('News', array(
-                    
+        $listingData = new CActiveDataProvider('Listing', array(
+                    'pagination' => array(
+                        'pageSize' => 10,
+                    ),
+                ));
+        $newsDataProvider = new CActiveDataProvider('News', array(
                     'pagination' => array(
                         'pageSize' => 10,
                     ),
@@ -54,7 +57,27 @@ class SiteController extends Controller {
         $this->render('index', array(
             'liveFutureDataProvider' => $liveFutureDataProvider,
             'liveSpotDataProvider' => $liveSpotDataProvider,
-           'newsDataProvider' => $newsDataProvider
+            'newsDataProvider' => $newsDataProvider,
+            'listingDataProvider' => $listingData
+        ));
+    }
+
+    public function actionLivePrice() {
+         $liveFutureDataProvider = new CActiveDataProvider('Livefuture', array(
+                    'pagination' => array(
+                        'pageSize' => 10,
+                    ),
+                ));
+        $this->render('liveprice', array(
+            'liveFutureDataProvider' => $liveFutureDataProvider,
+        ));
+    }
+     
+    
+    public function actionAbout() {
+      
+        $this->render('//site/pages/about', array(
+           
         ));
     }
 

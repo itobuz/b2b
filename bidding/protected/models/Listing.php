@@ -12,6 +12,7 @@
  * @property string $deliveryDate
  * @property string $paymentDate
  * @property double $price
+ * @property double $priceUnit
  * @property integer $state
  * @property integer $city
  * @property integer $kms
@@ -30,7 +31,11 @@
  * @property City $city0
  */
 class Listing extends CActiveRecord {
-
+		
+	const COMM_SUGAR=0;
+	const COMM_ALU=1;
+	const COMM_JUTE=2;
+	
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -54,7 +59,7 @@ class Listing extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('commodityName, orderQty, deliveryDate, paymentDate, price, paymentTerms, expireTime, tradeType,listingHeading', 'required'),
+            array('commodityName, orderQty, deliveryDate, paymentDate, price, paymentTerms, expireTime, tradeType,listingHeading,qtyUnit,priceUnit', 'required'),
             array('orderQty, state, city, kms', 'numerical', 'integerOnly' => true),
             array('price', 'numerical'),
             array('orderType', 'length', 'max' => 4),
@@ -65,7 +70,7 @@ class Listing extends CActiveRecord {
             array('specialRequirments, deliveryAddress', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, orderType, commodityName,listingHeading, productType, orderQty, deliveryDate, paymentDate, price, state, city, kms, paymentTerms, expireTime, tradeType, specialRequirments, commodityTestReport, deliveryAddress, lat, long', 'safe', 'on' => 'search'),
+            array('id, orderType, commodityName,listingHeading, productType, orderQty,qtyUnit, deliveryDate, paymentDate, price, state, city, kms, paymentTerms, expireTime, tradeType, specialRequirments, commodityTestReport, deliveryAddress, lat, long', 'safe', 'on' => 'search'),
         );
     }
 
@@ -77,6 +82,7 @@ class Listing extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'bs' => array(self::HAS_MANY, 'Bid', 'listId'),
+            'files' => array(self::HAS_MANY, 'Files', 'list_id'),
             'bidCount' => array(self::STAT, 'Bid', 'listId'),
             'state0' => array(self::BELONGS_TO, 'State', 'state'),
             'city0' => array(self::BELONGS_TO, 'City', 'city'),
@@ -93,21 +99,21 @@ class Listing extends CActiveRecord {
             'commodityName' => 'Commodity Name',
             'productType' => 'Product Type',
             'orderQty' => 'Order Qty',
-            'deliveryDate' => 'Delivery Date',
-            'paymentDate' => 'Payment Date',
+            'deliveryDate' => 'Expected Delivery Date',
+            'paymentDate' => 'Expected Payment Date',
             'price' => 'Price',
             'state' => 'State',
             'city' => 'City',
             'kms' => 'Maximum delivery distance(Kms)',
             'paymentTerms' => 'Payment Terms',
-            'expireTime' => 'Expire Date',
-            'tradeType' => 'Trade Type',
-            'specialRequirments' => 'Special Requirments',
-            'commodityTestReport' => 'Commodity Test Report',
+            'expireTime' => 'Expired Listing Date',
+            'tradeType' => 'Pricing Requirement',
+            'specialRequirments' => 'Description',
+            'commodityTestReport' => 'Attachment',
             'deliveryAddress' => 'Delivery Address',
             'lat' => 'Latitude',
             'long' => 'Longitude',
-            'listingHeading' => 'Listing Title',
+            'listingHeading' => 'Posting Title',
             'userId' => 'userId'
         );
     }
@@ -190,5 +196,15 @@ class Listing extends CActiveRecord {
         $this->userId = Yii::app()->user->id;
         return true;
     }
-
+	/**
+	* @return array commoditytype names indexed by type IDs
+	*/
+	public function getCommodityOptions()
+	{
+		return array(
+			self::COMM_SUGAR=>'sugar',
+			self::COMM_ALU=>'aluminium',
+			self::COMM_JUTE=>'jute',
+		);
+	}
 }

@@ -10,7 +10,8 @@ class Weather extends CApplicationComponent {
             if (!empty($_POST['location'])) {
                 $cookie_location = (string) $_POST['location'];
                 Yii::app()->request->cookies['weather_location'] = new CHttpCookie('weather_location', $cookie_location);
-                Yii::app()->request->redirect('/site/index');
+               $home = Yii::app()->createUrl('/site/index');
+                Yii::app()->request->redirect($home);
             }
         }
         if (!isset(Yii::app()->request->cookies['weather_location'])) {
@@ -20,7 +21,8 @@ class Weather extends CApplicationComponent {
             $location = isset($response_array[0][6]) ? (!empty($response_array[0][6]) ? strtolower($response_array[0][6]) : $default_location ) : $default_location;
         } else {
             if (!empty(Yii::app()->request->cookies['weather_location'])) {
-                $location = Yii::app()->request->cookies['weather_location'];
+                $location = Yii::app()->request->cookies['weather_location']->value;
+                
             } else {
                 $city_name_api_url = "http://api.ipinfodb.com/v3/ip-city/?key=20b96dca8b9a5d37b0355e9461c66e76eed30a2274422fa6213d9de6ffb2b34e&ip={$location}";
                 $response_city = Weather::getCurl($city_name_api_url);
@@ -57,11 +59,15 @@ class Weather extends CApplicationComponent {
 //        print_r($current_condition);
 //        echo "</pre>";
         ?>
+        <style>
+           
+        </style>
+
         <h2> Weather Report</h2>
         <div class="summary">&nbsp;</div>
         <?php
         $link->beginWidget('zii.widgets.CPortlet', array(
-            'title' => "<img src='{$icon}' height='32' width='32'/> Location: {$location}",
+            'title' => "<img src='{$icon}' height='32' width='32'/> Location: <span>{$location}</span> <a href='#' id='wchange' style='font-size:10px;'>Change location</a><a href='#' id='wback' style='font-size:10px;display:none;'>Cancel</a>",
         ));
         ?>
         <div>
@@ -70,9 +76,25 @@ class Weather extends CApplicationComponent {
             Current Wind Speed:  <b><i><?= $wind_speed ?> KM/hour</i></b><br>
             Max/Min temperature Forecast : <b><i><?= $max_temperature ?>&deg;C / <?= $min_temperature ?>&deg;C</i></b><br>
             <br>
-
-
+            `
+            <script type="text/javascript">
+                var $wchange = $('#wchange');
+                var $wback = $('#wback');
+                window.loc = "<?= $location ?>";
+                $wchange.click(function(){            
+                    var ip = "<form method='post' action='"+window.location.href+"'><input type='text' id='textLoc' name='location'/><input type='submit' value='change' id='cbutton' placeholder='enter lcoation'/></form>";
+                    $(this).hide();
+                    $wback.show();
+                    $(this).prev('span').html(ip); 
+                });
+                $wback.click(function(){
+                     $(this).hide();
+                    $wchange.show();
+                    $(this).parent().find('span').html(loc); 
+                });
+            </script>
         </div>
+
         <?php $link->endWidget(); ?>
         <?
     }

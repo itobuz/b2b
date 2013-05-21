@@ -34,6 +34,7 @@ $this->menu=array(
 		$profileFields=$profile->getFields();
 		if ($profileFields) {
 			foreach($profileFields as $field) {
+				if($field->varname != 'comment'){
 			?>
 	<div class="row">
 		<?php echo $form->labelEx($profile,$field->varname);
@@ -45,15 +46,110 @@ $this->menu=array(
 		} elseif ($field->field_type=="TEXT") {
 			echo $form->textArea($profile,$field->varname,array('rows'=>6, 'cols'=>50));
 		} else {
-			echo $form->textField($profile,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
+			if($field->varname == 'state'){
+				$state_list = CHtml::listData(State::model()->findAll(), 'id', 'name');
+	            $options = array(
+	                'tabindex' => '0',
+	                'empty' => array('(not set)'),
+	                'ajax' => array(
+	                    'type' => 'POST',
+	                    'url' => array('/site/loadcities'),
+	                    'data' => array('sId' => 'js: $("#Profile_state option:selected").val()'),
+	                    'update' => '#Profile_city',
+	                )
+	            );
+				echo $form->dropDownList($profile, $field->varname, $state_list, $options);
+			}
+			elseif($field->varname == 'cstate'){
+				$state_list = CHtml::listData(State::model()->findAll(), 'id', 'name');
+	            $options = array(
+	                'tabindex' => '0',
+	                'empty' => array('(not set)'),
+	                'ajax' => array(
+	                    'type' => 'POST',
+	                    'url' => array('/site/loadcities'),
+	                    'data' => array('sId' => 'js: $("#Profile_cstate option:selected").val()'),
+	                    'update' => '#Profile_ccity',
+	                )
+	            );
+				echo $form->dropDownList($profile, $field->varname, $state_list, $options);
+			}
+			elseif($field->varname == 'city'){
+				$city_list = CHtml::listData(City::model()->findAll(), 'id', 'name');
+	            $options = array(
+	                'tabindex' => '0',
+	                'empty' => '(not set)',
+	                'class' => 'customSelect'
+	            );
+				echo $form->dropDownList($profile, $field->varname, $city_list, $options);
+			}
+			elseif($field->varname == 'ccity'){
+				$city_list = CHtml::listData(City::model()->findAll(), 'id', 'name');
+	            $options = array(
+	                'tabindex' => '0',
+	                'empty' => '(not set)',
+	                'class' => 'customSelect'
+	            );
+				echo $form->dropDownList($profile, $field->varname, $city_list, $options);
+			}
+			else
+				echo $form->textField($profile,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
 		}
 		echo $form->error($profile,$field->varname); ?>
 	</div>	
 			<?php
-			}
+			}}
 		}
 ?>
-	
+
+	        <div class="row">
+            <?php echo $form->labelEx($comm, 'commId',array('label' => 'Interested Commodities')); ?>
+
+            <?php
+            	
+            	$data = Listing::model()->getCommodityOptions();//array('1' => 'Sugar', '2' => 'Aluminium', '3' => 'Jute');
+
+            	echo $form->checkBoxList($comm, 'commId', $data, array('template'=>'{input}{label}', 'separator'=>'','class'=>'commodity'));
+				 // }
+				$commo = Interestedcomm::model()->findAllByAttributes(array('userId'=>Yii::app()->user->id));
+				//echo $commo->commId;
+				?>
+				<script>
+					var comms = ''; 
+				</script>
+				
+				<?php
+				foreach($commo as $c){
+					//echo "<br/>";
+					//print_r($c->commId);
+				?>
+				<script>
+					if(comms.length == 0)
+						comms += 'Interestedcomm_commId_'+<?php echo $c->commId; ?>;
+					else
+						comms += ':Interestedcomm_commId_'+<?php echo $c->commId; ?>;
+				</script>
+				
+				<?php
+				}
+				
+		    ?>
+		    <script>
+		    	jQuery(function($) {
+		    		var myArray = comms.split(':');
+
+				   
+				    for(var i=0;i<myArray.length;i++){
+				        $("#"+myArray[i]).attr('checked', true);
+				        console.log(myArray[i]);
+				    }
+			    	
+			    	
+		    	});
+		    </script>
+
+            <?php //echo $form->error($profile, $profileFields[21]->varname); ?>
+        </div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
