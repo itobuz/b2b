@@ -10,8 +10,7 @@
 			'encodeLabel'=>false,
 			'items'=>array(
 				array('label'=>'<i class="icon icon-home"></i>  Dashboard ', 'url'=>array('/site/index'),'itemOptions'=>array('class'=>'')),
-				// Include the operations menu
-				array('label'=>'OPERATIONS','items'=>$this->menu),
+				array('label'=>'OPERATIONS','items'=>$this->menu , 'visible' => Yii::app()->user->checkAccess('Admin')),
 			),
 			));?>
 		</div>

@@ -1,5 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="content">
+
+<div id="main_content">
 	<?php echo $content; ?>
-</div><!-- content -->
+</div>
 <?php $this->endContent(); ?>

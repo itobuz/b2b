@@ -47,6 +47,8 @@ class LivespotController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        	Yii::app()->theme = 'abound';	
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -57,6 +59,8 @@ class LivespotController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+        	Yii::app()->theme = 'abound';	
+
         $model = new Livespot;
 
         // Uncomment the following line if AJAX validation is needed
@@ -79,6 +83,8 @@ class LivespotController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        	Yii::app()->theme = 'abound';	
+
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -134,6 +140,8 @@ class LivespotController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+       	Yii::app()->theme = 'abound';	
+
         $dataProvider = new CActiveDataProvider('Livespot');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -144,6 +152,8 @@ class LivespotController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+       	Yii::app()->theme = 'abound';	
+
         $model = new Livespot('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Livespot']))

@@ -90,7 +90,7 @@ class State extends CActiveRecord
 		));
 	}
         
-         public function getNameById($id)
+      public function getNameById($id)
        {
            $sql = "SELECT name FROM state WHERE id = ".(int) $id; 
            $result = Yii::app()->db->createCommand($sql)->queryAll(true);

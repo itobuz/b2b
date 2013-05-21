@@ -28,8 +28,7 @@
                         array('label' => 'Home', 'url' => array('/site/index')),
                         array('label' => 'Trade <span class="caret"></span>', 'url' => '#', 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
-                                array('label' => 'Open Trades', 'url' => '#'),
-                                array('label' => 'Closed Trades', 'url' => '#'),
+
                                 array('label' => 'Create Trade Listing', 'url' => array('/listing/create')),
                         )),
                         array('label' => 'Register', 'url' => array('/user/registration'), 'visible' => Yii::app()->user->isGuest),
@@ -40,7 +39,7 @@
                                 array('label' => 'Edit Profile', 'url' => array('/user/profile/edit')),
 								array('label' => 'Change Password', 'url' => array('/user/profile/changepassword')),
                                 array('label' => 'My Trade Listings', 'url' => array('/listing/mylistings')),
-                                array('label' => 'Dashbard', 'url' => array('/user/dashboard')),
+
                         )),
                         array('label' => 'Login', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
                         array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest),

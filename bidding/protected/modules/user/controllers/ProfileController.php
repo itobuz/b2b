@@ -32,7 +32,7 @@ class ProfileController extends Controller
 		
 		$model = $this->loadUser();
 		$profile=$model->profile;
-		
+		$comm = new Interestedcomm;
 		// ajax validator
 		if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
 		{
@@ -48,6 +48,14 @@ class ProfileController extends Controller
 			if($model->validate()&&$profile->validate()) {
 				$model->save();
 				$profile->save();
+				Interestedcomm::model()->deleteAllByAttributes(array('userId'=>Yii::app()->user->id));
+				foreach($_POST['Interestedcomm']['commId'] as $com){
+							$comm = new Interestedcomm;	
+							$comm->userId = $model->id;
+							$comm->commId = $com;
+							$comm->save();
+						}
+				
                 Yii::app()->user->updateSession();
 				Yii::app()->user->setFlash('profileMessage',UserModule::t("Changes is saved."));
 				$this->redirect(array('/user/profile'));
@@ -57,6 +65,7 @@ class ProfileController extends Controller
 		$this->render('edit',array(
 			'model'=>$model,
 			'profile'=>$profile,
+			'comm' => $comm,
 		));
 	}
 	
@@ -104,5 +113,14 @@ class ProfileController extends Controller
 				$this->redirect(Yii::app()->controller->module->loginUrl);
 		}
 		return $this->_model;
+	}
+	
+	public function actionNotification()
+	{
+		$model = $this->loadUser();
+	    $this->render('notification',array(
+	    	'model'=>$model,
+			'profile'=>$model->profile,
+	    ));
 	}
 }

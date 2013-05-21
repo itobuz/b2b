@@ -41,7 +41,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
     <div class="span12">
         <h2> Latest News</h2>
         <?php
-        Yii::import('application.controllers.PriceindexController');
+
         $this->widget('zii.widgets.grid.CGridView', array(
             /* 'type'=>'striped bordered condensed', */
             'htmlOptions' => array('class' => 'table'),
@@ -68,7 +68,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
     <div class="span12">
         <h2> NCDEX Live Spot Quotes</h2>
         <?php
-        Yii::import('application.controllers.PriceindexController');
+
         $this->widget('zii.widgets.grid.CGridView', array(
             /* 'type'=>'striped bordered condensed', */
             'htmlOptions' => array('class' => 'table'),
